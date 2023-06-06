@@ -2,10 +2,7 @@ package coop.constellation.connectorservices.ssosample.handlers;
 
 import com.xtensifi.dspco.UserData;
 
-
-
 abstract class HandlerBase implements HandlerLogic {
-
 
     Boolean isAauthenticated(UserData userData) {
 

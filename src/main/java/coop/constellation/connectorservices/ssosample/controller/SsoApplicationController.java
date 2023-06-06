@@ -1,4 +1,5 @@
 package coop.constellation.connectorservices.ssosample.controller;
+
 import com.xtensifi.dspco.ConnectorMessage;
 
 import com.xtensifi.connectorservices.common.logging.ConnectorLogging;
@@ -31,10 +32,9 @@ public class SsoApplicationController extends ConnectorControllerBase {
     // Logger for this object
     private ConnectorLogging logger = new ConnectorLogging();
 
-    // EXTERNAL CALL METHOD
     @PostMapping(path = "/GetToken", consumes = "application/json", produces = "application/json")
     public ConnectorMessage ExternalCallMethod(@RequestBody String connectorJson) {
-        final String logPrefix = "BasicSampleConnector.ExternalCallMethod: ";
+        final String logPrefix = "SSOConnector.ExternalCallMethod: ";
 
         GetTokenHandler handler = new GetTokenHandler();
 

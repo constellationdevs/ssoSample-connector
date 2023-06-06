@@ -6,14 +6,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-
 import java.util.Map;
-
 
 import coop.constellation.connectorservices.ssosample.controller.BaseParamsSupplier;
 import coop.constellation.connectorservices.ssosample.helpers.EnhancedConnectorLogging;
 import coop.constellation.connectorservices.ssosample.helpers.StdoutConnectorLogging;
-
 
 @Configuration
 public class BeansConfig {
