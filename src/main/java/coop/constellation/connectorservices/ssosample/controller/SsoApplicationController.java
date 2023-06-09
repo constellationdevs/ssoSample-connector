@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
 @Controller
 @CrossOrigin
 @AllArgsConstructor
-@RequestMapping("/externalConnector/BasicConnectorTemplate/1.0")
+@RequestMapping("/externalConnector/SsoConnector/1.0")
 public class SsoApplicationController extends ConnectorControllerBase {
 
     // Following method is required in order for your controller to pass health
