@@ -39,14 +39,6 @@ public class ConnectorControllerBase {
         objectMapper = new ObjectMapper();
         objectMapper.enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS);
     }
-
-    private BaseParamsSupplier baseParamsSupplier;
-
-    @Autowired
-    public void setBaseParamsSupplier(BaseParamsSupplier supplier) {
-        this.baseParamsSupplier = supplier;
-    }
-
     /**
      * Boilerplate method for handling the connector message
      * 
@@ -67,15 +59,13 @@ public class ConnectorControllerBase {
 
             UserData userData = connectorMessage.getExternalServicePayload().getUserData();
 
-            final Map<String, String> allParams = getAllParams(connectorMessage, baseParamsSupplier.get());
-
             // set default success message.
             responseStatusMessage.setStatus("Success");
             responseStatusMessage.setStatusCode("200");
             responseStatusMessage.setStatusDescription("Success");
             responseStatusMessage.setStatusReason(logPrefix + "Has responded.");
 
-            handlerLogic.generateResponse(allParams, userData, connectorMessage);
+            handlerLogic.generateResponse(userData, connectorMessage);
 
         } catch (Exception ex) {
             clog.fatal(connectorMessage, "caught exception in controller base " + ex.getMessage());

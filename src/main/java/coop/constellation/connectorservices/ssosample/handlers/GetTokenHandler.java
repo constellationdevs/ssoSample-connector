@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.xtensifi.connectorservices.common.workflow.ConnectorState;
 import com.xtensifi.dspco.ConnectorMessage;
 import com.xtensifi.dspco.UserData;
 
@@ -27,10 +26,8 @@ public class GetTokenHandler extends HandlerBase {
             // REQUIRED FORMAT - Is handled by httpRequest;
             BasicTemplateSvc = new BasicTemplateImp();
             BasicTemplateSvc.init();
-            String extResponse = null;
             String response = BasicTemplateSvc.requestExternalData(parms.get("url"));
 
-            extResponse = "{\"response\": " + response + "}";
             connectorMessage.setResponse(response);
         } else {
             // REQUIRED FORMAT - "{\"response\": {YOUR OBJECT HERE}}" as JSON string;
@@ -44,10 +41,10 @@ public class GetTokenHandler extends HandlerBase {
     }
 
     @Override
-    public String generateResponse(Map<String, String> parms, ConnectorState connectorState)
+    public String generateResponse(UserData userData, ConnectorMessage connectorMessage)
             throws IOException, ParseException {
         // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException("Unimplemented method 'generateResponse'");
     }
 
 }

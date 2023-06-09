@@ -22,8 +22,6 @@ public class SsoApplicationController extends ConnectorControllerBase {
 
     // Following method is required in order for your controller to pass health
     // checks.
-    // If the server cannot call awsping and get the expected response yur app will
-    // not be active.
     @GetMapping("/awsping")
     public String getAWSPing() {
         return "{ping: 'pong'}";

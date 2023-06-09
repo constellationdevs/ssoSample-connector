@@ -1,65 +1,90 @@
 package coop.constellation.connectorservices.ssosample.service;
 
 import javax.inject.Singleton;
+
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.text.ParseException;
 import java.util.Map;
 import java.util.HashMap;
 import com.xtensifi.connectorservices.common.accesslayer.HttpRequest;
+import com.xtensifi.dspco.ConnectorMessage;
 
-import org.slf4j.Logger; 
-import org.slf4j.LoggerFactory;
+import coop.constellation.connectorservices.ssosample.handlers.BasicTemplateHandler;
+
+import com.xtensifi.connectorservices.common.logging.ConnectorLogging;
+import com.xtensifi.connectorservices.common.workflow.ConnectorState;
 
 @Singleton
-public class BasicTemplateImp implements IBasicTemplateHandler { 
+public class BasicTemplateImp implements BasicTemplateHandler {
+
+    ConnectorMessage connectorMessage = null;
 
     /* Generic logger for the class */
-    private static Logger logger = LoggerFactory.getLogger(BasicTemplateImp.class); 
+    private ConnectorLogging logger = new ConnectorLogging();
 
     /* Init() - Initialize BasicTemplateImp */
     public void init() {
-        logger.info("BasicTemplateImp.Init() - Ran");
-        
+        logger.info(connectorMessage, "BasicTemplateImp.Init() - Ran");
+
     }
 
-    /* requestExternalData() - Simple Method to grab data from external(to Consetellation) backend end. */
-    public String requestExternalData(String url){
-        logger.info("BasicTemplateImp.Method1() - Ran");
+    /*
+     * requestExternalData() - Simple Method to grab data from external(to
+     * Consetellation) backend end.
+     */
+    public String requestExternalData(String url, String ParamName, String ParamValue,
+            ConnectorMessage connectorMessage) {
+        logger.info(connectorMessage, "BasicTemplateImp.Method1() - Ran");
         String extResponse = null;
-        
-        // CREATE HTTP REQUEST - HELPER IS HERE TO MAKE EXTERNAL CALLS 
+
+        // CREATE HTTP REQUEST - HELPER IS HERE TO MAKE EXTERNAL CALLS
         HttpRequest dspHttpRequest = new HttpRequest();
 
         try {
-            
+
             // HTTP REQUEST - BUILD & SET HEADER - For External call
-            Map<String, String> headers = new HashMap<String, String>(); 
+            Map<String, String> headers = new HashMap<String, String>();
             headers.put("Accept", "application/json");
             headers.put("Content-Type", "application/json");
             dspHttpRequest.setHeaders(headers);
 
             // HTTP REQUEST - SET IS HTTP
             dspHttpRequest.setIsHttp(true);
-            
+
             // HTTP REQUEST - SET URL
             dspHttpRequest.setUrl(url);
 
             // HTTP REQUEST - SET METHOD - GET OR POST
             dspHttpRequest.setMethod("GET");
 
-            // HTTP REQUEST - SET URL Parameters 
-            // String urlParameters = "";
-            // if (ParamValue != "" && ParamValue != null){
-            //     urlParameters = ParamName.toLowerCase() + "=" + URLEncoder.encode(ParamValue, "UTF-8"); 
-            //     dspHttpRequest.setUrlParameters(urlParameters);
-            // }
-            // EXECUTE HTTP REQUEST - NOTE: Response is in the format needed {\"response\": {RESPONSE IS HERE}}"
+            // HTTP REQUEST - SET URL Parameters
+            String urlParameters = "";
+            if (ParamValue != "" && ParamValue != null) {
+                urlParameters = ParamName.toLowerCase() + "=" + URLEncoder.encode(ParamValue, "UTF-8");
+                dspHttpRequest.setUrlParameters(urlParameters);
+            }
+            // EXECUTE HTTP REQUEST - NOTE: Response is in the format needed {\"response\":
+            // {RESPONSE IS HERE}}"
             extResponse = dspHttpRequest.executeRequest();
 
         } catch (Exception ex) {
-            logger.error("BasicTemplateImp.requestExternalDate - Exception:" + ex.getMessage());
+            logger.error(connectorMessage, "BasicTemplateImp.requestExternalDate - Exception:" + ex.getMessage());
             extResponse = "{\"data\": {}, \"success\": false}";
         }
-        // NOTE External Response format is: 
+        // NOTE External Response format is:
         return extResponse;
     }
-}
 
+    @Override
+    public String requestExternalData(String url) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'requestExternalData'");
+    }
+
+    public String generateResponse(Map<String, String> parms, ConnectorState connectorState)
+            throws IOException, ParseException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+}
