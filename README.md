@@ -9,6 +9,14 @@ This connector is a starting point and includes a method used for retrieving an 
 - access to a third party web api
 - url of the third party site to open
 
+## Best practices
+
+- We recommend using the [Use this template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template) feature to create a new repository.
+
+- Cloning or forking is a satisfactory alternative.
+
+- Any changes to the connector should be contained to your copy of the connector project only. You should never push any commits (and associated branches) to this repo.
+
 ## Setting up your developer environment:
 
 - IDE - Visual Studio Code: [Install Visual Studio Code](https://code.visualstudio.com)
